@@ -1,0 +1,25 @@
+{
+  "name": "playwright-odata-listener",
+  "version": "0.1.0",
+  "description": "Playwright helper to listen and validate OData requests",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch"
+  },
+  "keywords": [
+    "playwright",
+    "odata",
+    "testing"
+  ],
+  "author": "Caio Willian dos Santos",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "typescript": "^6.0.2"
+  }
+}
