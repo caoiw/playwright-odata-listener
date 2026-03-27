@@ -35,6 +35,6 @@ export function buildErrorMessage(
   return (
     `[ODataListener] ${pContext}\n` +
     `Endpoint: "${pEndpoint}"\n` +
-    `URL capturada: ${pUrl}`
+    `Captured URL: ${pUrl}`
   );
 }

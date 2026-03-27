@@ -11,7 +11,7 @@ import { matchesODataParams, buildErrorMessage } from './utils';
  *
  * @example
  * const xListener = listenODataRequest(page, {
- *   endpoint: '/api/vehicles',
+ *   endpoint: '/odata/vehicles',
  *   queryParams: { $filter: "Status eq 'Active'", $top: 50 },
  *   expectedStatus: 200,
  * });
@@ -52,7 +52,7 @@ export async function listenODataRequest(
   if (xActualStatus !== pExpectedStatus) {
     throw new Error(
       buildErrorMessage(
-        `Retornou HTTP ${xActualStatus}, esperado ${pExpectedStatus}.`,
+        `Returned HTTP ${xActualStatus}, expected ${pExpectedStatus}.`,
         pEndpoint,
         xResponse.url()
       )
@@ -65,7 +65,7 @@ export async function listenODataRequest(
   } catch {
     throw new Error(
       buildErrorMessage(
-        'Response body inválido (não é JSON).',
+        'Response body is not valid JSON.',
         pEndpoint,
         xResponse.url()
       )
@@ -87,8 +87,8 @@ export async function listenODataRequest(
  *
  * @example
  * const [xVehicles, xRoutes] = await listenMultipleODataRequests(page, [
- *   { endpoint: '/api/vehicles' },
- *   { endpoint: '/api/routes', queryParams: { $filter: "Active eq true" } },
+ *   { endpoint: '/odata/vehicles' },
+ *   { endpoint: '/odata/routes', queryParams: { $filter: "Active eq true" } },
  * ]);
  */
 export async function listenMultipleODataRequests(
