@@ -1,7 +1,7 @@
 {
-  "name": "playwright-odata-listener",
-  "version": "0.1.0",
-  "description": "Playwright helper to listen and validate OData requests",
+  "name": "playwright-api-listener",
+  "version": "0.2.0",
+  "description": "Playwright helper to declaratively listen and validate REST API requests in E2E tests.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -13,7 +13,8 @@
   },
   "keywords": [
     "playwright",
-    "odata",
+    "api",
+    "rest",
     "testing"
   ],
   "author": "Caio Willian dos Santos",

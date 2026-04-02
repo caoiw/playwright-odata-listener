@@ -1,39 +1,48 @@
-# playwright-odata-listener
+# playwright-api-listener
 
-Playwright helper to listen and validate OData requests.
+Playwright helper to declaratively listen and validate REST API requests in E2E tests.
 
 ## Installation
+
 ```bash
-npm install playwright-odata-listener
+npm install playwright-api-listener
 ```
 
 ## Usage
-```typescript
-import { listenODataRequest } from 'playwright-odata-listener';
 
-const xListener = listenODataRequest(page, {
-  endpoint: '/api/vehicles',
-  queryParams: { $filter: "Status eq 'Active'", $top: 50 },
+```typescript
+import { listenRequest } from "playwright-api-listener";
+
+const requestListener = listenRequest(page, {
+  endpoint: "/api/vehicles",
+  method: "GET",
+  queryParams: { status: "active", limit: 50 },
   expectedStatus: 200,
+  validateBody: (body) => {
+    if (!Array.isArray(body.items)) {
+      throw new Error("Expected items array in response");
+    }
+  },
 });
 
-await page.goto('/vehicles');
+await page.goto("/vehicles");
 
-const { body, url } = await xListener;
+const { body, url, response } = await requestListener;
 ```
 
 ## API
 
-### `listenODataRequest(page, options)`
+### `listenRequest(page, options)`
 
-| Option | Type | Required | Default | Description |
-|---|---|---|---|---|
-| `endpoint` | `string` | ✅ | — | URL fragment to match |
-| `queryParams` | `ODataQueryParams` | ❌ | `{}` | OData params to validate |
-| `expectedStatus` | `number` | ❌ | `200` | Expected HTTP status |
-| `timeout` | `number` | ❌ | `10000` | Timeout in ms |
-| `validateBody` | `function` | ❌ | — | Callback to assert response body |
+| Option           | Type          | Required | Default | Description                                           |
+| ---------------- | ------------- | -------- | ------- | ----------------------------------------------------- |
+| `endpoint`       | `string`      | ✅       | —       | URL fragment to match                                 |
+| `method`         | `HttpMethod`  | ❌       | —       | The HTTP method to match (e.g., 'GET', 'POST', 'PUT') |
+| `queryParams`    | `QueryParams` | ❌       | `{}`    | Query params to exact match                           |
+| `expectedStatus` | `number`      | ❌       | `200`   | Expected HTTP status code                             |
+| `timeout`        | `number`      | ❌       | `10000` | Timeout in ms                                         |
+| `validateBody`   | `function`    | ❌       | —       | Callback to assert response body                      |
 
-### `listenMultipleODataRequests(page, requests[])`
+### `listenMultipleRequests(page, requests[])`
 
-Listens to multiple OData requests simultaneously.
+Listens to multiple REST API requests simultaneously. Useful for page loads that trigger several concurrent requests.
