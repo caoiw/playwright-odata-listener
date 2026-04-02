@@ -1,3 +1,8 @@
-export { listenODataRequest, listenMultipleODataRequests } from './listener';
+export { listenRequest, listenMultipleRequests } from "./listener";
 
-export type { ODataQueryParams, ODataListenerOptions, ODataListenerResult } from './types';
+export type {
+  QueryParams,
+  HttpMethod,
+  RequestListenerOptions,
+  RequestListenerResult,
+} from "./types";
